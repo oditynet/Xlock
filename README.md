@@ -24,3 +24,11 @@ xlsfonts | grep courier
 ```
 
 <img src="https://github.com/oditynet/Xlock/blob/main/pic1.jpg" title="example" width="500" />
+
+# Версия 2:
+
+```
+gcc Xlock_v2.c -o Xlock_v2 -lX11 -ldbus-1 -lXft -I /usr/include/dbus-1.0/ -I /usr/lib32/dbus-1.0/include/ -I/usr/include/freetype2/ 
+```
+
+<img src="https://github.com/oditynet/Xlock/blob/main/out2.jpg" title="example" width="500" />
