@@ -34,10 +34,11 @@ gcc Xlock_v2.c -o Xlock_v2 -lX11 -ldbus-1 -lXft -I /usr/include/dbus-1.0/ -I /us
 <img src="https://github.com/oditynet/Xlock/blob/main/out2.jpg" title="example" width="500" />
 
 # Версия 3: 
-Добавил вывод времени и фотографии на фоне.
+Добавил вывод времени, раскладки клавиатуры и фотографии на фоне.
 
 ```
-gcc Xlock_v3.c -o Xlock_v3 -lX11 -lXft -lImlib2  -ldbus-1 -I /usr/include/dbus-1.0/ -I /usr/lib32/dbus-1.0/include/  -I /usr/include/freetype2/
+gcc Xlock_v3.c -o Xlock -lX11 -lXft -lImlib2 -lxkbfile -ldbus-1 -I /usr/include/dbus-1.0/ -I /usr/lib32/dbus-1.0/include/  -I /usr/include/freetype2/
+
 ```
 
 <img src="https://github.com/oditynet/Xlock/blob/main/pic2.jpg" title="example" width="500" />
