@@ -40,5 +40,15 @@ gcc Xlock_v2.c -o Xlock_v2 -lX11 -ldbus-1 -lXft -I /usr/include/dbus-1.0/ -I /us
 gcc Xlock_v3.c -o Xlock -lX11 -lXft -lImlib2 -lxkbfile -ldbus-1 -I /usr/include/dbus-1.0/ -I /usr/lib32/dbus-1.0/include/  -I /usr/include/freetype2/
 
 ```
+Take a screen blue:
+```
+#!/bin/bash
+# Make screenshot
+scrot /tmp/screen.png
+# Scale image
+convert -scale 10% -scale 1000% /tmp/screen.png /tmp/screen1.png
+#convert -scale 10% -scale 1000% -gravity center -annotate +0+160 "Enter password:" lock.png /tmp/screen.png /tmp/screen1.png
+./Xlock
+
 
 <img src="https://github.com/oditynet/Xlock/blob/main/pic2.jpg" title="example" width="500" />
