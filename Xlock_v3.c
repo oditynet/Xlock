@@ -1,4 +1,5 @@
 #include <X11/Xlib.h>
+#include <X11/XKBlib.h>
 #include <X11/Xft/Xft.h>
 #include <X11/keysym.h>
 #include <locale.h>
@@ -8,11 +9,17 @@
 #include <Imlib2.h>
 
 #define PASSWORD "123"
-#define FONT_NAME "DejaVu Sans:size=24:antialias=true"
+#define FONT_NAME "DejaVu Sans:size=32:antialias=true"
 #define DOT_RADIUS 8
 #define DOT_SPACING 20
 #define BACKGROUND_COLOR "#000000"  // Черный фон
 #define TEXT_COLOR "#FFFFFF"        // Белый текст
+
+// Названия для групп раскладок (настройте под свою систему)
+static const char* group_names[] = {
+    "EN",  // Группа 0
+    "RU"  // Группа 1
+    };
 
 typedef struct {
     Display* dpy;
@@ -28,6 +35,17 @@ typedef struct {
     int height;
     Imlib_Image background_image;
 } LockState;
+
+// Функция для получения текущей раскладки
+const char* get_current_layout(Display* dpy) {
+    XkbStateRec state;
+    XkbGetState(dpy, XkbUseCoreKbd, &state);
+    
+    if (state.group < sizeof(group_names) / sizeof(group_names[0])) {
+        return group_names[state.group];
+    }
+    return "??";
+}
 
 void init_x11(LockState* s) {
     s->dpy = XOpenDisplay(NULL);
@@ -106,6 +124,19 @@ void draw_time(LockState* s) {
     draw_centered_text(s, time_str, -100);
 }
 
+void draw_keyboard_layout(LockState* s) {
+    const char* layout = get_current_layout(s->dpy);
+    XGlyphInfo extents;
+    
+    XftTextExtentsUtf8(s->dpy, s->font, (FcChar8*)layout, strlen(layout), &extents);
+    
+    int x = 20;//s->width- extents.width - 20;  // Отступ 20 пикселей справа
+    int y = extents.height + 20;            // Отступ 20 пикселей сверху
+    
+    XftDrawStringUtf8(s->draw, &s->text_color, s->font, x, y, 
+                     (FcChar8*)layout, strlen(layout));
+}
+
 void draw_background(LockState* s) {
     if (s->background_image) {
         imlib_context_set_image(s->background_image);
@@ -122,6 +153,9 @@ void redraw_screen(LockState* s, int pass_len, int attempts) {
 
     // Отрисовка времени
     draw_time(s);
+
+    // Отрисовка раскладки клавиатуры
+    draw_keyboard_layout(s);
 
     // Отрисовка текста
     draw_centered_text(s, "СИСТЕМА ЗАБЛОКИРОВАНА", -30);
