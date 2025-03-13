@@ -47,7 +47,6 @@ Take a screen blue:
 scrot /tmp/screen.png
 # Scale image
 convert -scale 10% -scale 1000% /tmp/screen.png /tmp/screen1.png
-#convert -scale 10% -scale 1000% -gravity center -annotate +0+160 "Enter password:" lock.png /tmp/screen.png /tmp/screen1.png
 ./Xlock
 ```
 
