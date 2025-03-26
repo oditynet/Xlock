@@ -61,4 +61,4 @@ bindsym Mod1+ctrl+l exec /home/user/.i3/lock.sh
 
 61.py - очень умный: он анализирует куда положит свой пиксель от qrcode и если фон темный, то цвет точки инвертирует.
 
-<img src="https://github.com/oditynet/Xlock/blob/main/screen2.png" title="example" width="500" />
+<img src="https://github.com/oditynet/Xlock/blob/main/screen4.png" title="example" width="500" />
